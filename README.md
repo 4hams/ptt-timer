@@ -46,4 +46,4 @@ is installed.
 License
 -------
 
-This code is under the zlib license, found in the source file.
+This code is under the zlib license, found in LICENSE and in the source file.
