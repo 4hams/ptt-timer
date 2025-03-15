@@ -60,9 +60,8 @@
 # A passive buzzer can optionally be connected across GPIO21, pin 40, and
 # ground, pin 34 ($7 for ten of them: https://www.amazon.com/dp/B01MR1A4NV,
 # with header connectors). It will buzz on and off in the last five seconds.
-# The top button will cycle between the sound on and off. The new sound state
-# is shown as long as the top button remains pressed. Initially the sound is
-# off.
+# The top button cycles between the sound on and off. The new sound state is
+# shown as long as the top button remains pressed. Initially the sound is on.
 
 # This can be run on a headless Raspberry Pi, and set up to run on boot by
 # putting the command "@reboot python3 ptt-timer.py" in your crontab (using
@@ -159,9 +158,9 @@ step = {90 : 60, 60 : 30, 30 : 15, 15 : 90}
 timeout = next(iter(step))
 warn = 5
 
-# Set up the buzzer. Default to no audio alert. The top button will cycle
+# Set up the buzzer. Default to sound enabled. The top button will cycle
 # between the sound enabled and disabled.
-sound = False
+sound = True
 buzzer = pwmio.PWMOut(board.D21, frequency = 262, duty_cycle = 0)
 
 try:
