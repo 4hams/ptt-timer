@@ -1,7 +1,7 @@
 '''
   ptt-timer.py -- push-to-talk countdown timer
   Copyright (C) 2025 Mark Adler
-  Version 1.0  9 Mar 2025  Mark Adler
+  Version 1.1  15 Mar 2025  Mark Adler
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the author be held liable for any damages
@@ -22,6 +22,15 @@
   Mark Adler
   madler@alumni.caltech.edu
 '''
+
+# Version History:
+#   1.0   9 Mar 2025  First version
+#   1.1  15 Mar 2025  Speed up polling from ten to thirty times a second
+#                     Have the top button silence the buzzer when PTT pushed
+#                     Change the initial sound state to on
+#                     Use a monotonic timer to avoid jumps
+#                     Elaborate on the PTT voltage divider
+#                     Add a LICENSE file
 
 # Provide a push-to-talk countdown timer on a Raspberry Pi with a Mini PiTFT
 # 135x240 display ($10 at https://www.adafruit.com/product/4393). Also show the
