@@ -161,6 +161,8 @@ warn = 5
 # Set up the buzzer. Default to sound enabled. The top button will cycle
 # between the sound enabled and disabled.
 sound = True
+silence = False
+buzz = False
 buzzer = pwmio.PWMOut(board.D21, frequency = 262, duty_cycle = 0)
 
 try:
@@ -184,7 +186,9 @@ try:
         if ptt.value:
             # The PTT switch is open.
             push = False
+            silence = False
             buzzer.duty_cycle = 0
+            buzz = False
             if bot.value:
                 # The bottom button is open.
                 cycle = False
@@ -209,7 +213,10 @@ try:
                 # timeout value.
                 draw.text((0, 82), f"T/O {timeout} s", font=big, fill=red)
         else:
-            # The PTT switch is closed.
+            # The PTT switch is closed. Allow the top button to silence the
+            # buzzer for this countdown, without changing the sound state.
+            if not top.value:
+                silence = True
             if not push:
                 # The PTT just closed. Save the time this happened.
                 push = time.monotonic()
@@ -218,11 +225,17 @@ try:
             if left > warn or round(3 * left) % 2 == 0:
                 # Alternately show time and sound buzzer every 1/3 second.
                 buzzer.duty_cycle = 0
+                buzz = False
                 draw.text((0, 82), f"  {left:.1f} s", font=big, fill=red)
-            else:
-                if sound:
-                    # Turn the buzzer on and off in the last five seconds.
+            elif silence:
+                # Immediately stop the buzzer if the top button is pressed.
+                buzzer.duty_cycle = 0
+                buzz = False
+            elif sound:
+                # Turn the buzzer on and off in the last five seconds.
+                if not buzz:
                     buzzer.duty_cycle = 32768
+                    buzz = True
 
         # Copy the image buffer to the display.
         disp.image(image, rotation)
