@@ -240,8 +240,8 @@ try:
         # Copy the image buffer to the display.
         disp.image(image, rotation)
 
-        # Update the display and check the switches ten times a second.
-        time.sleep(0.1)
+        # Update the display and check the switches thirty times a second.
+        time.sleep(1/30)
 
 except KeyboardInterrupt:
     # Backup and overwrite the displayed interrupt character (^C).
