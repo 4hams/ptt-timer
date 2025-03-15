@@ -141,7 +141,7 @@ pullup.switch_to_output()
 pullup.value = True
 ptt = digitalio.DigitalInOut(board.D26)
 ptt.switch_to_input()
-push = False if ptt.value else time.time()
+push = False if ptt.value else time.monotonic()
 
 # Connect up the buttons. button.value is true if the button is up and false if
 # the button is down (go figure). The top button cycles between the sound on
@@ -213,8 +213,8 @@ try:
             # The PTT switch is closed.
             if not push:
                 # The PTT just closed. Save the time this happened.
-                push = time.time()
-            left = timeout - time.time() + push
+                push = time.monotonic()
+            left = timeout - time.monotonic() + push
             # Show the time left, but blink when five seconds or less left.
             if left > warn or round(3 * left) % 2 == 0:
                 # Alternately show time and sound buzzer every 1/3 second.
