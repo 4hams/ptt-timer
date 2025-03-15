@@ -33,11 +33,29 @@
 # connected to the RPi ground, e.g. to the neighboring header pin 39. This
 # works nicely with a Raspberry Pi Zero 2W ($18 w/header). WiFi is useful to
 # set and synchronize the date and time with an NTP server. The PTT signal can
-# come from the microphone connector, or a data jack if the radio has one.
+# come from the microphone connector or an accessory jack.
 
-# The bottom button will cycle between four timeout times: 90, 60, 30, and 15
-# seconds. The new timeout time is displayed as long as the bottom button is
-# pressed.
+# Note that the GPIO pin must not be allowed to go above 3.3V relative to
+# ground. If it does, the Raspberry Pi can be damaged. The pull-up in the radio
+# is often connected to a higher voltage source, in which case a voltage
+# divider is required. Typically all that is needed is one resistor across the
+# PTT and ground line, where the other resistor for the voltage divider is the
+# pull-up resistor in the radio. The value should be selected to put the
+# voltage across PTT and ground to be about halfway between 3.3V and the
+# voltage at which transmit is triggered. As an example, a 68K resistor works
+# for the Kenwood TM-D71, which has an internal 47K pullup to 5V on the PTT
+# line at the microphone jack, with a 2.55V trigger for transmit. Another
+# example is the ICOM IC-9700 at the ACC jack on the back. Its SEND line, which
+# triggers at 1.25V, is pulled up with an 8V supply through a 4.7K resistor and
+# a 1.2V forward voltage switching diode. That presents 6.8V, which can be
+# dropped to 2.2V with a 2.2K resistor across SEND and GND.
+
+# The timer is controlled with the bottom button, which will cycle between four
+# timeout times: 90, 60, 30, and 15 seconds. The initial default is 90 seconds.
+# The new timeout time is displayed as long as the bottom button is pressed.
+# Each time PTT is pushed, the timer starts counting down, with the time shown
+# on the display. Once it reaches five seconds, the countdown display starts
+# blinking, to alert the operator.
 
 # A passive buzzer can optionally be connected across GPIO21, pin 40, and
 # ground, pin 34 ($7 for ten of them: https://www.amazon.com/dp/B01MR1A4NV,
@@ -199,6 +217,7 @@ try:
             left = timeout - time.time() + push
             # Show the time left, but blink when five seconds or less left.
             if left > warn or round(3 * left) % 2 == 0:
+                # Alternately show time and sound buzzer every 1/3 second.
                 buzzer.duty_cycle = 0
                 draw.text((0, 82), f"  {left:.1f} s", font=big, fill=red)
             else:
