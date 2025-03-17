@@ -230,8 +230,12 @@ try:
                 # The PTT just closed. Save the time this happened.
                 push = time.monotonic()
             left = timeout - time.monotonic() + push
+            if left < -next(iter(step)):
+                # The PTT seems stuck closed -- do nothing until it opens.
+                buzzer.duty_cycle = 0
+                buzz = False
             # Show the time left, but blink when five seconds or less left.
-            if left > warn or round(3 * left) % 2 == 0:
+            elif left > warn or round(3 * left) % 2 == 0:
                 # Alternately show time and sound buzzer every 1/3 second.
                 buzzer.duty_cycle = 0
                 buzz = False
