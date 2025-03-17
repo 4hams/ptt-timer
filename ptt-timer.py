@@ -230,6 +230,10 @@ try:
                 # The PTT just closed. Save the time this happened.
                 push = time.monotonic()
             left = timeout - time.monotonic() + push
+            if left < 0:
+                # Turn off the buzzer once zero is reached. It's too late,
+                # baby, now it's too late.
+                silence = True
             if left < -next(iter(step)):
                 # The PTT seems stuck closed -- do nothing until it opens.
                 buzzer.duty_cycle = 0
