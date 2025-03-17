@@ -1,7 +1,7 @@
 '''
   ptt-timer.py -- push-to-talk countdown timer
   Copyright (C) 2025 Mark Adler
-  Version 1.1  15 Mar 2025  Mark Adler
+  Version 1.2  16 Mar 2025  Mark Adler
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the author be held liable for any damages
@@ -31,6 +31,8 @@
 #                     Use a monotonic timer to avoid jumps
 #                     Elaborate on the PTT voltage divider
 #                     Add a LICENSE file
+#   1.2  16 Mar 2025  End the countdown if the PTT is stuck closed
+#                     Turn off the buzzer once zero is reached
 
 # Provide a push-to-talk countdown timer on a Raspberry Pi with a Mini PiTFT
 # 135x240 display ($10 at https://www.adafruit.com/product/4393). Also show the
