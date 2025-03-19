@@ -185,11 +185,11 @@ try:
                   font=med, fill=white)
         draw.text((0, 26), "LOC " + datetime.now().strftime("%a"),
                   font=med, fill=green)
-        draw.text((108, 26), datetime.now().strftime("%H:%M:%S"),
+        draw.text((116, 26), datetime.now().strftime("%H:%M:%S"),
                   font=med, fill=green)
         draw.text((0, 54), "UTC " + datetime.utcnow().strftime("%a"),
                   font=med, fill=yellow)
-        draw.text((108, 54), datetime.utcnow().strftime("%H:%M:%S"),
+        draw.text((116, 54), datetime.utcnow().strftime("%H:%M:%S"),
                   font=med, fill=yellow)
 
         # Check the PTT switch. Check button B if the PTT switch is open. Check
