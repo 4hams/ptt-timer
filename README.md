@@ -44,6 +44,11 @@ Press the push-to-talk switch to start a countdown timer. Let it run to the end
 to see the blinking display and hear the sound, if the latter is enabled and a
 buzzer is installed.
 
+Demonstration Video
+-------------------
+
+[![Demonstration of the PTT timer](https://img.youtube.com/vi/vTmkGAvz2g4/0.jpg)](https://www.youtube.com/watch?v=vTmkGAvz2g4)
+
 License
 -------
 
