@@ -183,7 +183,7 @@ try:
     while True:
         # Put the current date, local time, and UTC time in the image buffer.
         draw.rectangle((0, 0, width, height), fill=black)
-        draw.text((0, -2), datetime.now().strftime("%B %d, %Y"),
+        draw.text((0, -2), datetime.now().strftime("%b %d, %Y"),
                   font=med, fill=white)
         draw.text((0, 26), "LOC " + datetime.now().strftime("%a"),
                   font=med, fill=green)
